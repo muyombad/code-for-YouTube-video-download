@@ -1,0 +1,140 @@
+from pytube import YouTube
+
+def download_youtube_video(video_url, output_path='.'):
+    try:
+        # Create a YouTube object
+        yt = YouTube(video_url)
+
+        # Get the highest resolution stream
+        video_stream = yt.streams.get_highest_resolution()
+
+        # Optional: Print video details
+        print(f"Video Title: {yt.title}")
+        print(f"Video Duration: {yt.length} seconds")
+
+        # Download the video
+        print("Downloading...")
+        video_stream.download(output_path)
+        print("Download complete!")
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+# Example usage
+video_url = "https://www.youtube.com/watch?v=PQsJR8ci3J0"
+output_path = "C:/Users/User/Desktop/you"
+download_youtube_video(video_url, output_path)
+
+
+--------------------------------------------------------------------------------------------------------------------
+                                            code  for audio ✔
+---------------------------------------------------------------------------------------------------------------------
+
+from pytube import YouTube
+from pytube.exceptions import AgeRestrictedError
+
+def download_youtube_audio(video_url, output_path='.', username=None, password=None):
+    try:
+        # Create a YouTube object
+        yt = YouTube(video_url)
+
+        # Check if the video is age-restricted
+        if yt.age_restricted:
+            if not username or not password:
+                raise AgeRestrictedError("This video is age-restricted. Provide YouTube credentials to access it.")
+
+            # Log in to a YouTube account to bypass age restriction
+            yt.login(username, password)
+
+        # Get the highest resolution audio stream
+        audio_stream = yt.streams.filter(only_audio=True).first()
+
+        # Optional: Print video details
+        print(f"Video Title: {yt.title}")
+        print(f"Video Duration: {yt.length} seconds")
+
+        # Download the audio
+        print("Downloading audio...")
+        audio_stream.download(output_path)
+        print("Download complete!")
+
+    except AgeRestrictedError as e:
+        print(f"Age-restricted video error: {e}")
+    except Exception as e:
+        print(f"Error: {e}")
+
+# Example usage
+video_url = "https://www.youtube.com/watch?v=XRm15tiTGWE"
+output_path = "C:/Users/User/Desktop/Sarah"
+youtube_username = "muyombadavid148@gmail.com"
+youtube_password = "BankBank1481"
+download_youtube_audio(video_url, output_path, youtube_username, youtube_password)
+------------------------------------------------------------------------------------------------------------
+                                       code for maulpal videos at once
+--------------------------------------------------------------------------------------------------------
+from pytube import YouTube
+
+def download_youtube_video():
+    link = ["https://www.youtube.com/watch?v=aJLHOxBP8w8&pp=ygUOanVkaXRoIGJhYmlyZXk%3D",
+            "https://www.youtube.com/watch?v=Uef5ymRfUh4&pp=ygUOanVkaXRoIGJhYmlyZXk%3D"
+            ]
+    SAVE_PATH = "C:/Users/User/Desktop/you"
+    for i in link:
+        try:
+          # Create a YouTube object
+            yt = YouTube(i)
+
+        # Get the highest resolution stream
+            video_stream = yt.streams.get_highest_resolution()
+
+        # Optional: Print video details
+            print(f"Video Title: {yt.title}")
+            print(f"Video Duration: {yt.length} seconds")
+
+        # Download the video
+            print("Downloading...")
+            video_stream.download(SAVE_PATH)
+            print("Download complete!")
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+# Example usage
+
+download_youtube_video()
+
+------------------------------------------------------------------------------------------------------------------
+                                code for maulpal audios at once
+--------------------------------------------------------------------------------------------------------------------
+
+from pytube import YouTube
+
+
+def download_youtube_audio():
+    link = ["https://www.youtube.com/watch?v=aJLHOxBP8w8&pp=ygUOanVkaXRoIGJhYmlyZXk%3D",
+            "https://www.youtube.com/watch?v=Uef5ymRfUh4&pp=ygUOanVkaXRoIGJhYmlyZXk%3D"
+            ]
+    save_to = "C:/Users/User/Desktop/you"
+    for i in link:
+        try:
+            # Create a YouTube object
+            yt = YouTube(i)
+
+            # Get the highest resolution stream
+            audio_stream = yt.streams.filter(only_audio=True).first()
+
+            # Optional: Print video details
+            print(f"audio Title: {yt.title}")
+            print(f"audio Duration: {yt.length} seconds")
+
+            # Download the video
+            print("Downloading...")
+            audio_stream.download(save_to)
+            print("Download complete!")
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+
+# Example usage
+download_youtube_audio()
